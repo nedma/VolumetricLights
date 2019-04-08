@@ -57,7 +57,7 @@ Shader "Hidden/BilateralBlur"
 
 		#define PI 3.1415927f
 
-#include "UnityCG.cginc"	
+		#include "UnityCG.cginc"	
 
         UNITY_DECLARE_TEX2D(_CameraDepthTexture);        
         UNITY_DECLARE_TEX2D(_HalfResDepthBuffer);        
@@ -305,7 +305,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment horizontalFrag
-            #pragma target 4.0
+			#pragma target 3.0
 			
 			fixed4 horizontalFrag(v2f input) : SV_Target
 			{
@@ -321,7 +321,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
 			#pragma vertex vert
 			#pragma fragment verticalFrag
-            #pragma target 4.0
+			#pragma target 3.0
 			
 			fixed4 verticalFrag(v2f input) : SV_Target
 			{
@@ -337,7 +337,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
             #pragma vertex vert
             #pragma fragment horizontalFrag
-            #pragma target 4.0
+            #pragma target 3.0
 
 			fixed4 horizontalFrag(v2f input) : SV_Target
 		{
@@ -353,7 +353,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
             #pragma vertex vert
             #pragma fragment verticalFrag
-            #pragma target 4.0
+            #pragma target 3.0
 
 			fixed4 verticalFrag(v2f input) : SV_Target
 		{
@@ -369,7 +369,8 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
 			#pragma vertex vertHalfDepth
 			#pragma fragment frag
-            #pragma target gl4.1
+			//#pragma target gl4.1
+			#pragma target 3.0
 
 			v2fDownsample vertHalfDepth(appdata v)
 			{
@@ -392,7 +393,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
 			#pragma vertex vertUpsampleToFull
 			#pragma fragment frag		
-            #pragma target 4.0
+			#pragma target 3.0
 
 			v2fUpsample vertUpsampleToFull(appdata v)
 			{
@@ -412,7 +413,8 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
             #pragma vertex vertQuarterDepth
             #pragma fragment frag
-            #pragma target gl4.1
+            //#pragma target gl4.1
+	    #pragma target 3.0
 
 			v2fDownsample vertQuarterDepth(appdata v)
 			{
@@ -435,7 +437,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
             #pragma vertex vertUpsampleToFull
             #pragma fragment frag		
-            #pragma target 4.0
+            #pragma target 3.0
 
 			v2fUpsample vertUpsampleToFull(appdata v)
 			{
@@ -455,7 +457,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
             #pragma vertex vert
             #pragma fragment horizontalFrag
-            #pragma target 4.0
+            #pragma target 3.0
 
 			fixed4 horizontalFrag(v2f input) : SV_Target
 			{
@@ -471,7 +473,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
             #pragma vertex vert
             #pragma fragment verticalFrag
-            #pragma target 4.0
+            #pragma target 3.0
 
 			fixed4 verticalFrag(v2f input) : SV_Target
 			{
@@ -487,7 +489,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
 			#pragma vertex vertHalfDepth
 			#pragma fragment frag
-			#pragma target 4.0
+			#pragma target 3.0
 
 			v2fDownsample vertHalfDepth(appdata v)
 			{
@@ -508,7 +510,7 @@ Shader "Hidden/BilateralBlur"
 			CGPROGRAM
 			#pragma vertex vertQuarterDepth
 			#pragma fragment frag
-			#pragma target 4.0
+			#pragma target 3.0
 
 			v2fDownsample vertQuarterDepth(appdata v)
 			{
