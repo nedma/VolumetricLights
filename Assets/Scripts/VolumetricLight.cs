@@ -102,7 +102,9 @@ public class VolumetricLight : MonoBehaviour
                 
         }
         else
+        {
             _light.AddCommandBuffer(LightEvent.AfterShadowMap, _commandBuffer);
+        }
 
         Shader shader = Shader.Find("Sandbox/VolumetricLight");
         if (shader == null)
@@ -141,7 +143,7 @@ public class VolumetricLight : MonoBehaviour
     /// <param name="viewProj"></param>
     private void VolumetricLightRenderer_PreRenderEvent(VolumetricLightRenderer renderer, Matrix4x4 viewProj)
     {
-        // light was destroyed without deregistring, deregister now
+        // light was destroyed without de-registring, de-register now
         if (_light == null || _light.gameObject == null)
         {
             VolumetricLightRenderer.PreRenderEvent -= VolumetricLightRenderer_PreRenderEvent;
