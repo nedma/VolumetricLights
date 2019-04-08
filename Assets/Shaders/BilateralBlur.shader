@@ -414,7 +414,7 @@ Shader "Hidden/BilateralBlur"
             #pragma vertex vertQuarterDepth
             #pragma fragment frag
             //#pragma target gl4.1
-	    #pragma target 3.0
+			#pragma target 3.0
 
 			v2fDownsample vertQuarterDepth(appdata v)
 			{
