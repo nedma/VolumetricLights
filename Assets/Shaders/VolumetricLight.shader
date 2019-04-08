@@ -89,6 +89,10 @@ Shader "Sandbox/VolumetricLight"
 				// read depth and reconstruct world position
 				float depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, uv);			
 
+				////////////////////////////////////////////////////////////////////////
+				// [nedma]求raytrace的起点和终点
+				// 起点即cam pos，终点为与light sphere的交点
+				// 终点貌似直接取了pixel的位置
 				float3 rayStart = _WorldSpaceCameraPos;
 				float3 rayEnd = i.wpos;
 
@@ -97,12 +101,13 @@ Shader "Sandbox/VolumetricLight"
 
 				rayDir /= rayLength;
 
+				// [nedma]view space Z
 				float linearDepth = LinearEyeDepth(depth);
 
-				// [nedma]夹角越大，dot越小，projectedDepth越大
-				// projectedDepth [-linearDepth, linearDepth]
+				// ??????????????????????????????????
 				float projectedDepth = linearDepth / dot(_CameraForward, rayDir);
 				rayLength = min(rayLength, projectedDepth);
+				////////////////////////////////////////////////////////////////////////
 				
 				return RayMarch(i.pos.xy, rayStart, rayDir, rayLength);
 			}
@@ -195,6 +200,9 @@ Shader "Sandbox/VolumetricLight"
 
 				rayDir /= rayLength;
 
+				////////////////////////////////////////////////////////////////////////
+				// [nedma]求raytrace的起点和终点
+				// [nedma]1.求ray和light sphere的前后交点
 				float3 lightToCamera = _WorldSpaceCameraPos - _LightPos;
 
 				float b = dot(rayDir, lightToCamera);
@@ -204,9 +212,11 @@ Shader "Sandbox/VolumetricLight"
 				float start = -b - d;
 				float end = -b + d;
 
+				// [nedma]2.处理有遮挡物的情况
 				float linearDepth = LinearEyeDepth(depth);
 				float projectedDepth = linearDepth / dot(_CameraForward, rayDir);
 				end = min(end, projectedDepth);
+				////////////////////////////////////////////////////////////////////////
 
 				rayStart = rayStart + rayDir * start;
 				rayLength = end - start;
@@ -262,10 +272,14 @@ Shader "Sandbox/VolumetricLight"
 				rayDir /= rayLength;
 
 
+				////////////////////////////////////////////////////////////////////////
+				// [nedma]求raytrace的length
+
 				// inside cone
 				float3 r1 = rayEnd + rayDir * 0.001;
 
 				// plane intersection
+				// _PlaneD: d in plane equation ax + by + cz + d = 0
 				float planeCoord = RayPlaneIntersect(_ConeAxis, _PlaneD, r1, rayDir);
 				// ray cone intersection
 				float2 lineCoords = RayConeIntersect(_ConeApex, _ConeAxis, _CosAngle, r1, rayDir);

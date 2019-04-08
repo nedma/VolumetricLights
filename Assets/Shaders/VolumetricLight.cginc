@@ -46,7 +46,7 @@ v2f vert(appdata v)
 {
 	v2f o;
 	o.pos = mul(_WorldViewProj, v.vertex);
-	o.uv = ComputeScreenPos(o.pos);
+	o.uv = ComputeScreenPos(o.pos);  // [nedma]齐次坐标下的屏幕坐标值, 范围[-w,w]
 	o.wpos = mul(unity_ObjectToWorld, v.vertex);
 	return o;
 }
