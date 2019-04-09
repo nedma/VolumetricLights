@@ -39,6 +39,8 @@ public class VolumetricLight : MonoBehaviour
 
     private Light _light;
     private Material _material;
+
+    // [nedma]Lights with shadow will use those command buffers; Others will use GlobalCommandBuffer(VolumetricLightRenderer._preLightPass)
     private CommandBuffer _commandBuffer;
     private CommandBuffer _cascadeShadowCommandBuffer;
 

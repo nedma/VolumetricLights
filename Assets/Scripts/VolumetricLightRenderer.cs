@@ -319,6 +319,7 @@ public class VolumetricLightRenderer : MonoBehaviour
             PreRenderEvent(this, _viewProj);
     }
 
+    // OnRenderImage() called after all rendering is complete to render image.
     [ImageEffectOpaque]
     public void OnRenderImage(RenderTexture source, RenderTexture destination)
     {
