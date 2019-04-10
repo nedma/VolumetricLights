@@ -99,9 +99,9 @@ public class VolumetricLight : MonoBehaviour
         //_light.RemoveAllCommandBuffers();
         if(_light.type == LightType.Directional)
         {
-            _light.AddCommandBuffer(LightEvent.BeforeScreenspaceMask, _commandBuffer);
-            _light.AddCommandBuffer(LightEvent.AfterShadowMap, _cascadeShadowCommandBuffer);
-                
+            _light.AddCommandBuffer(LightEvent.BeforeScreenspaceMask, _commandBuffer);  // [nedma]The shadow cascade parameters are set but shadow mask not yet computed
+            _light.AddCommandBuffer(LightEvent.AfterShadowMap, _cascadeShadowCommandBuffer);  //[nedma]All shadow casters are rendered and the current render target is still the shadow map. Note that shadow cascade parameters are not yet set.
+
         }
         else
         {
